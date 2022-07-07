@@ -1,0 +1,79 @@
+﻿<link rel="stylesheet" href="~/Assets/css/Header.css">
+
+<header id="top">
+    <div ng-init="LoadLoaiSP()"></div>
+    <div class="title-admin-login" style="text-align:center;font-size:16px;margin-top:-10px;">
+        <i class="fas fa-users-cog" style="margin-left:450px">Trang quản lí dành cho quản trị viên:</i>
+        <a href="/Admin/login/Index">Đăng nhập</a>
+    </div>
+    <hr style="width:100%" />
+    <div class="container">
+        <div class="pre-header">
+            <div class="row">
+                <!-- BEGIN TOP BAR LEFT PART -->
+                <div class="col-md-5 col-sm-5" style="margin-left:-50px;margin-top:7px">
+                    <ul style="display:flex" class="top_bar-left">
+                        <li><i class="fa fa-phone"></i><a href="#">0372082758</a></li>
+                        <li><p>|</p></li>
+                        <li><p>Cam kết chỉ bán hàng chính hãng, nói không với replica, fake...</p></li>
+                    </ul>
+                </div>
+                <!-- END TOP BAR LEFT PART -->
+                <!-- BEGIN TOP BAR MENU -->
+                <div class="col-4 col-info" style="margin-left:200px;margin-top:5px">
+                    <div class="navholder">
+                        <nav class="subnav" ng-controller="AuthController">
+                            <ul ng-show="authentication">
+                                @*nếu đăng nhập rồi thì hiện thông tin tài khoản và nút đăng xuất*@
+                                <li>Xin chào, <a href="#" class="user">{{authentication.HoTen}}</a></li>
+                                <li><a href="/Home/DangXuat">Đăng xuất</a></li>
+                            </ul>
+                            <ul ng-show="!authentication">
+                                @*nếu chưa đăng nhập thì hiện nút dăng kí, đăng nhập*@
+                                <li><a href="/Home/DangKy">Đăng ký</a></li>
+                                <li><a href="/Home/DangNhap">Đăng nhập</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <!-- END TOP BAR MENU -->
+            </div>
+        </div>
+    </div>
+    <div class="header-menu" id="ontop">
+        <div class="container">
+            <div class="row">
+                <div class="col-2 col-logo">
+                    <a href="/"><img src="~/Assets/image/logo1.png" alt="logo" style="width: 90px;margin-left:-100px"></a>
+                </div>
+                <div class="navmenu" style="margin-left:-180px;margin-top:20px">
+                    <!-- MENU IN DESKTOP DEVICE -->
+                    @Html.Partial("_Menu")
+                </div>
+                <div class="header-search" style="margin-left: -250px; margin-top: 17px">
+                    <form action="" method="get">
+                        <input type="text" class="search" name="find" placeholder="Bạn muốn tìm gì?" style="width:300px" ng-model="tumin">
+                    </form>
+                    <i class="fa fa-search"></i>
+                    <button><i class="fa fa-search"></i></button>
+                </div>
+                @Html.Partial("_GioHang")
+            </div>
+        </div>
+    </div>
+    <div class="sidenav">
+        <!-- MENU IN MOBILE DEVICE -->
+        <div class="side-menu">
+            <div class="side-header">
+                MENU
+                <span class="close">&times;</span>
+            </div>
+            <div class="side-body">
+                @Html.Partial("_Menu")
+            </div>
+            <div class="side-footer">
+                <i class="fa fa-commenting-o"></i> Design by Tú Min'dx
+            </div>
+        </div>
+    </div>
+</header>

@@ -1,0 +1,167 @@
+﻿@{
+    ViewBag.Title = "Quản Lí Hoá Đơn Bán";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row m-t-30" ng-controller="HoaDonBanController">
+    <div class="col-md-12 mb-3">
+        <button ng-click="onCreate()" class="btn btn-outline-primary"><i class="fa fa-plus"></i> Tạo hóa đơn</button>
+    </div>
+
+    <div class="col-md-12">
+        <!-- DATA TABLE-->
+        <div class="table-responsive m-b-40">
+            <table class="table table-borderless table-data3">
+                <thead>
+                    <tr>
+                        <th>Mã hóa đơn</th>
+                        <th>Khách hàng</th>
+                        <th>Email</th>
+                        <th>Số điện thoại</th>
+                        <th>Ngày tạo</th>
+                        <th style="width: 20%">Tùy chọn</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in table">
+                        <td>{{item.MaHDB}}</td>
+                        <td>{{item.khachHang.HoTen}}</td>
+                        <td>{{item.khachHang.Email}}</td>
+                        <td>{{item.khachHang.SDT}}</td>
+                        <td>{{item.NgayTao.slice(6,19) | date}}</td>
+                        <td>
+                            <button ng-click="onView(item)" class="btn btn-sm btn-info"><i class="fa fa-eye"></i></button>
+                            <button ng-click="onDelete(item)" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- END DATA TABLE-->
+        <!-- hiển thị phân trang ở đây -->
+        <div class="phantrang" style="margin-left:400px">
+            <ul uib-pagination
+                items-per-page="pageSize" @*số bản ghi trên 1 trang*@
+                total-items="rowCount" @*tổng số bản ghi*@
+                ng-model="currentPage" @*trang hiện tại*@
+                ng-change="pageChanged()" @*sự kiện khi ng dùng chuyển trang*@
+                previous-text="&laquo;" @*cái dấu mũi tên lùi trang*@
+                next-text="&raquo;" @*cái dấu mũi tên tiến trang*@></ul>
+        </div>
+    </div>
+</div>
+
+@section modals {
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="viewModalTitle">Tạo hóa đơn</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form name="form">
+                    <div class="card-header">
+                        <h3>Thông tin khách hàng</h3>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Họ tên:</label>
+                            <input type="text" class="form-control" name="HoTen" ng-model="formModel.HoTen" required>
+                            <div class="alert alert-danger mt-3" ng-show="isSubmited && form.HoTen.$error.required">Vui lòng nhập họ tên!</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Địa chỉ:</label>
+                            <input type="text" class="form-control" name="DiaChi" ng-model="formModel.DiaChi" required>
+                            <div class="alert alert-danger mt-3" ng-show="isSubmited && form.DiaChi.$error.required">Vui lòng nhập địa chỉ!</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Email:</label>
+                            <input type="text" class="form-control" name="Email" ng-model="formModel.Email" required>
+                            <div class="alert alert-danger mt-3" ng-show="isSubmited && form.Email.$error.required">Vui lòng nhập Email!</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Số điện thoại:</label>
+                            <input type="text" class="form-control" name="SDT" ng-model="formModel.SDT" required>
+                            <div class="alert alert-danger mt-3" ng-show="isSubmited && form.SDT.$error.required">Vui lòng nhập số điện thoại nhà cung cấp!</div>
+                        </div>
+                    </div>
+                    <div class="card-header">
+                        <h3>Chi tiết hóa đơn</h3>
+                        <button type="button" ng-click="onAdd()" class="btn btn-primary mt-3"><i class="fa fa-plus"></i> Thêm sản phẩm</button>
+                    </div>
+                    <div class="card-body" ng-repeat="item in ChiTiets">
+                        <div class="row">
+                            <div class="form-group col-md-7">
+                                <label for="recipient-name" class="col-form-label">Tên sản phẩm:</label>
+                                <select class="form-control" name="MaSP" ng-model="fo" required>
+                                    <option ng-repeat="item in SanPhams" value="{{item.MaSP}}" ng-selected="item.MaSP == formModel.MaSP">{{item.TenSP}}</option>
+                                </select>
+                                <div class="alert alert-danger mt-3" ng-show="isSubmited && form.TenSP.$error.required">Vui lòng chọn tên sản phẩm!</div>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="recipient-name" class="col-form-label">Số lượng:</label>
+                                <input type="number" class="form-control" ng-model="item.SoLuong">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                        <button ng-click="onSubmit()" type="button" class="btn btn-primary">Đồng ý</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 80%">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="viewModalTitle">Xem hóa đơn</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="card-header">
+                    <h3>Thông tin khách hàng</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-2 font-weight-bold">Họ tên:</div><div class="col-md-6">{{viewModel.khachHang.HoTen}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2 font-weight-bold">Địa chỉ:</div><div class="col-md-6">{{viewModel.khachHang.DiaChi}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2 font-weight-bold">Email:</div><div class="col-md-6">{{viewModel.khachHang.Email}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2 font-weight-bold">Số điện thoại:</div><div class="col-md-6">{{viewModel.khachHang.SDT}}</div>
+                    </div>
+                </div>
+                <div class="card-header">
+                    <h3>Chi tiết hóa đơn</h3>
+                </div>
+                <div class="card-body" ng-repeat="item in viewModel.chiTiet">
+                    <div class="row">
+                        <div class="col-md-2 font-weight-bold">Tên sản phẩm:</div><div class="col-md-6" ng-repeat="item in SanPhams" ng-selected="item.MaSP == formModel.MaSP">{{item.SanPham.TenSP}}</div>
+                    </div>
+                    <div class="col-md-6">
+                        SL: {{item.SoLuong | currency:"":0}} x {{item.DonGia | currency:"":0}} đ = {{(item.SoLuong * item.DonGia)  | currency:"":0}} đ
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section scripts {
+    @*chèn link js của controller loại sp vào đây*@
+    <script src="~/Scripts/Admin/HoaDonBanController.js"></script>    
+}

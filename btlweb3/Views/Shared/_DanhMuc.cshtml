@@ -1,0 +1,13 @@
+﻿<div class="nav-menu" ng-controller="MenuController">
+    <div class="nav-menu-title">
+        <div class="title-line title-left title-sm">
+            Danh mục
+            <div class="line line-left"></div>
+        </div>
+    </div>
+    <ul>
+        <li ng-repeat="item in menus">
+            <a href="/LoaiSanPham/Index?id={{item.MaLoai}}">{{item.TenLoai}}</a>
+        </li>
+    </ul>
+</div>

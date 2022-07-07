@@ -1,0 +1,11 @@
+﻿:root {
+    --color-primary: #D9C76A;
+    --color-primary-hover: #FFD700;
+}
+
+#slideshow {
+    height:100px;
+}
+#slideshow img {
+    height:100px;
+}

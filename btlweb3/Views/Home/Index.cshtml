@@ -1,0 +1,87 @@
+﻿@{
+    ViewBag.Title = "Min Sneaker | Trang chủ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="container" ng-controller="HomeController">
+    
+    <!-- slideshow -->
+    <div class="owl-carousel owl-theme" id="slideshow">
+        <div class="item"><img src="~/Assets/image/slide/sl1.png" alt="" style="height:400px"></div>
+        <div class="item"><img src="~/Assets/image/slide/sl.jpg" alt="" style="height:400px"></div>
+        <div class="item"><img src="~/Assets/image/slide/sls.jpg" alt="" style="height:400px"></div>
+    </div>
+
+    <!-- content -->
+    <div class="title-line" style="margin-top:270px">
+        <h1>Sản phẩm nổi bật</h1>
+        <div class="line"></div>
+    </div>
+
+    <div class="row list-products">
+        <div class="col-3" ng-repeat="item in sanPhamNoiBat |filter : tumin">
+            <div class="product-card">
+                <div class="product-image">
+                    <img ng-src="~/Assets/Uploads/{{item.HinhAnh}}" alt="..." class="first-image">
+                    <img ng-src="~/Assets/Uploads/{{item.HinhAnh}}" alt="..." class="second-image">
+                    <div class="action">
+                        <a ng-click="ThemVaoGio(item.MaSP)" data-cart="add"><i class="fa fa-cart-plus"></i></a>
+                        <a href="/SanPham/Index?id={{item.MaSP}}" data-view="quick-view"><i class="fa fa-eye"></i></a>
+                    </div>
+                </div>
+                <div class="product-content">
+                    <a href="/SanPham/Index?id={{item.MaSP}}">{{item.TenSP}}</a>
+                    <p>{{item.DonGia | currency:"":0}} đ</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row text-center mt-3 mb-3">
+        <a href="/Home/XemAll" class="btn btn-small btn-shadow btn-outline-primary btn-view">Xem thêm</a>
+    </div>
+
+    <div class="row line"></div>
+
+    <div class="title-line">
+        <h1>Sản phẩm khác</h1>
+        <div class="line"></div>
+    </div>
+
+    <div class="row list-products">
+        <div class="col-3" ng-repeat="item in sanPham">
+            <div class="product-card">
+                <div class="product-image">
+                    <img ng-src="~/Assets/Uploads/{{item.HinhAnh}}" alt="..." class="first-image">
+                    <img ng-src="~/Assets/Uploads/{{item.HinhAnh}}" alt="..." class="second-image">
+                    <div class="action">
+                        <a ng-click="ThemVaoGio(item.MaSP)" data-cart="add"><i class="fa fa-cart-plus"></i></a>
+                        <a href="/SanPham/Index?id={{item.MaSP}}" data-view="quick-view"><i class="fa fa-eye"></i></a>
+                    </div>
+                </div>
+                <div class="product-content">
+                    <a href="/SanPham/Index?id={{item.MaSP}}">{{item.TenSP}}</a>
+                    <p>{{item.DonGia | currency:"":0}} đ</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row text-center mt-3 mb-3">
+        <a href="/Home/XemAll" class="btn btn-small btn-shadow btn-outline-primary btn-view">Xem thêm</a>
+    </div>
+</section>
+
+@section scripts {
+    <script src="~/Scripts/User/HomeController.js"></script>
+}
+<style>
+    .product-card:hover {
+        border: 1px solid #FFD700;
+    }
+
+    .btn-outline-primary:hover {
+        background-color: #FFD700;
+        border: 1px solid black;
+    }
+</style>
+

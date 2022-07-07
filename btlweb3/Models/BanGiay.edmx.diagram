@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="325867f4bd174777a034e96eed7bb188" Name="Diagram1">
+        <EntityTypeShape EntityType="Ban_GiayModel.ChiTietHDB" Width="1.5" PointX="5.25" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Ban_GiayModel.ChiTietHDN" Width="1.5" PointX="8.25" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Ban_GiayModel.HoaDonBan" Width="1.5" PointX="3" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Ban_GiayModel.HoaDonNhap" Width="1.5" PointX="6" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Ban_GiayModel.KhachHang" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Ban_GiayModel.LoaiSanPham" Width="1.5" PointX="0.75" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Ban_GiayModel.NhaCungCap" Width="1.5" PointX="3.75" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Ban_GiayModel.SanPham" Width="1.5" PointX="3" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Ban_GiayModel.TaiKhoan" Width="1.5" PointX="5.75" PointY="6.75" IsExpanded="true" />
+        <AssociationConnector Association="Ban_GiayModel.FK__ChiTietHD__MaHDB__48CFD27E" ManuallyRouted="false" />
+        <AssociationConnector Association="Ban_GiayModel.FK__ChiTietHDB__MaSP__49C3F6B7" ManuallyRouted="false" />
+        <AssociationConnector Association="Ban_GiayModel.FK__ChiTietHD__MaHDN__4222D4EF" ManuallyRouted="false" />
+        <AssociationConnector Association="Ban_GiayModel.FK__ChiTietHDN__MaSP__4316F928" ManuallyRouted="false" />
+        <AssociationConnector Association="Ban_GiayModel.FK__HoaDonBan__MaKH__45F365D3" ManuallyRouted="false" />
+        <AssociationConnector Association="Ban_GiayModel.FK__HoaDonNha__MaNCC__3F466844" ManuallyRouted="false" />
+        <AssociationConnector Association="Ban_GiayModel.FK__SanPham__MaLoai__38996AB5" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

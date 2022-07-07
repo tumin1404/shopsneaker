@@ -1,0 +1,135 @@
+﻿
+@{
+    ViewBag.Title = "Quản Lí Sản Phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row m-t-30" ng-controller="SanPhamController">
+    <div class="col-md-12 mb-3">
+        <button class="btn btn-outline-primary" ng-click="onCreate()"><i class="fa fa-plus"></i> Thêm sản phẩm</button>
+    </div>
+
+    <div class="col-md-12">
+        <!-- DATA TABLE-->
+        <div class="table-responsive m-b-40">
+            <table class="table table-borderless table-data3">
+                <thead>
+                    <tr>
+                        <th>Mã</th>
+                        <th>Loại sản phẩm</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Số lượng</th>
+                        <th>Đơn giá</th>
+                        <th>Màu sắc</th>
+                        <th>Kích thước</th>
+                        <th>Hình ảnh</th>
+                        <th>Tùy chọn</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in table">
+                        <td>{{item.MaSP}}</td>
+                        <td>{{getTenLoai(item.MaLoai)}}</td>
+                        <td>{{item.TenSP}}</td>
+                        <td>{{item.SoLuong}}</td>
+                        <td>{{item.DonGia | currency:"":0}} đ</td>
+                        <td>{{item.MauSac}}</td>
+                        <td>{{item.KichThuoc}}</td>
+                        <td>
+                            <img ng-src="~/Assets/Uploads/{{item.HinhAnh}}" alt="..." style="width: 80px;" />
+                        </td>
+
+                        <td>
+                            <button class="btn btn-warning" ng-click="onEdit(item)"><i class="fa fa-edit"></i></button>
+                            <button class="btn btn-danger" ng-click="onDelete(item)"><i class="fa fa-trash"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- END DATA TABLE-->
+        <!-- hiển thị phân trang ở đây -->
+        <div class="phantrang" style="margin-left:380px">
+            <ul uib-pagination
+                items-per-page="pageSize" @*số bản ghi trên 1 trang*@
+                total-items="rowCount" @*tổng số bản ghi*@
+                ng-model="currentPage" @*trang hiện tại*@
+                ng-change="pageChanged()" @*sự kiện khi ng dùng chuyển trang*@
+                previous-text="&laquo;" @*cái dấu mũi tên lùi trang*@
+                next-text="&raquo;" @*cái dấu mũi tên tiến trang*@></ul>
+        </div>
+    </div>
+</div>
+
+@section modals {
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModalTitle">{{ isCreate ? "Thêm sản phẩm" : "Sửa sản phẩm" }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form name="form">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Tên sản phẩm:</label>
+                            <input type="text" class="form-control" name="TenSP" ng-model="formModel.TenSP" required>
+                            <div class="alert alert-danger mt-3" ng-show="isSubmited && form.TenSP.$error.required">Vui lòng nhập tên sản phẩm!</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Loại sản phẩm:</label>
+                            <select class="form-control" name="MaLoai" ng-model="formModel.MaLoai" required>
+                                <option ng-repeat="item in LoaiSanPhams" value="{{item.MaLoai}}" ng-selected="item.MaLoai == formModel.MaLoai">{{item.TenLoai}}</option>
+                            </select>
+                            <div class="alert alert-danger mt-3" ng-show="isSubmited && form.MaLoai.$error.required">Vui lòng chọn loại sản phẩm!</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Màu sắc:</label>
+                            <input type="text" class="form-control" name="MauSac" ng-model="formModel.MauSac" required>
+                            <div class="alert alert-danger mt-3" ng-show="isSubmited && form.MauSac.$error.required">Vui lòng nhập màu sản phẩm!</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Kích thước:</label>
+                            <input type="text" class="form-control" name="KichThuoc" ng-model="formModel.KichThuoc" required>
+                            <div class="alert alert-danger mt-3" ng-show="isSubmited && form.KichThuoc.$error.required">Vui lòng nhập kích thước sản phẩm!</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Số lượng:</label>
+                            <input type="text" class="form-control" name="SoLuong" ng-model="formModel.SoLuong" required>
+                            <div class="alert alert-danger mt-3" ng-show="isSubmited && form.SoLuong.$error.required">Vui lòng nhập số lượng sản phẩm!</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Đơn giá:</label>
+                            <input type="text" class="form-control" name="DonGia" ng-model="formModel.DonGia" required>
+                            <div class="alert alert-danger mt-3" ng-show="isSubmited && form.DonGia.$error.required">Vui lòng nhập đơn giá sản phẩm!</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Hình ảnh:</label>
+                            <div ng-show="!isCreate" class="alert alert-warning mb-1">Có thể bỏ qua ảnh để sử dụng ảnh cũ.</div>
+                            <input type="file" class="form-control" ngf-select ng-model="formImage" name="HinhAnh" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="1MB">
+                            <div class="alert alert-danger mt-3" ng-show="isSubmited && !formImage && isCreate">Vui lòng chọn một ảnh sản phẩm!</div>
+                            <div class="alert alert-danger mt-3" ng-show="isSubmited && form.HinhAnh.$error.maxSize">Ảnh quá lớn (không quá 1MB)</div>
+
+                            <img ng-show="myForm.HinhAnh.$valid" ngf-thumbnail="formImage" style="width: 80px;" class="mr-3">
+                            <button type="button" class="btn btn-warning" ng-click="formImage = null" ng-show="formImage"><i class="fa fa-trash"></i></button>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                        <button type="button" class="btn btn-primary" ng-click="onSubmit()">Đồng ý</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+}
+
+
+@section scripts {
+    @*chèn link js của controller sp vào đây*@
+    <script src="~/Scripts/Admin/SanPhamController.js"></script>
+}
+

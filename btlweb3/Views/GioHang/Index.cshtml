@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="container">
+    <div class="row">
+        <div class="title-line title-left title-sm">
+            <h1 style="text-align: center; color: #DAA520">Giỏ hàng</h1>            
+            <div class="line line-left"></div>
+        </div>
+
+        <table class="table">
+            <tr>
+                <th id="image">Hình ảnh</th>
+                <th id="name">Tên sản phẩm</th>
+                <th id="quantity">Số lượng</th>
+                <th id="price">Giá tiền</th>
+                <th id="action">#</th>
+            </tr>
+            <tbody>
+                <tr ng-repeat="item in GioHang.gioHang">
+                    <td id="image">
+                        <img ng-src="~/Assets/Uploads/{{item.HinhAnh}}" alt="">
+                    </td>
+                    <td id="name">
+                        <a href="/SanPham/Index?id={{item.MaSP}}">{{item.TenSP}}</a>
+                        <p><i>Size: {{item.KichThuoc}}</i></p>
+                    </td>
+                    <td id="quantity">
+                        {{item.SoLuong | currency:"":0}}
+                    </td>
+                    <td id="price">{{item.DonGia | currency:"":0}} đ</td>
+                    <td id="action">
+                        <button class="btn btn-danger" ng-click="XoaKhoiGio(item.MaSP)">Xóa</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="col-12 text-right">
+            <a href="/" class="btn btn-warning">Tiếp tục mua hàng</a>
+            <a ng-show="GioHang.gioHang.length > 0" href="/GioHang/ThanhToan" class="btn btn-success btn-checkout">Đặt hàng</a>
+        </div>
+    </div>
+</section>
+

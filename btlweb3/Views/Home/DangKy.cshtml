@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewBag.Title = "Đăng Kí Tài Khoản";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="container" ng-controller="DangKyController">
+    <div class="row">
+        <div class="box-register">
+            <div class="header">
+                Đăng ký tài khoản
+                <div class="line"></div>
+            </div>
+            <form name="form" class="form-control">
+                <div class="input-icon">
+                    <input type="text" name="HoTen" ng-model="formModel.HoTen" placeholder="Nhập họ tên..." required>
+                    <i class="fa fa-drivers-license icon"></i>
+                </div>
+                <div class="input-icon">
+                    <input type="text" name="SDT" ng-model="formModel.SDT" placeholder="Nhập số điện thoại..." required maxlength="10">
+                    <i class="fa fa-phone icon"></i>
+                </div>
+                <div class="input-icon">
+                    <input type="text" name="Email" ng-model="formModel.Email" placeholder="Nhập Email..." required>
+                    <i class="fa fa-envelope-o icon"></i>
+                </div>
+                <div class="input-icon">
+                    <input type="password" name="MatKhau" ng-model="formModel.MatKhau" placeholder="Nhập mật khẩu..." required>
+                    <i class="fa fa-lock icon"></i>
+                </div>
+                <div class="input-icon">
+                    <input type="password" name="reMatKhau" ng-model="formModel.reMatKhau" placeholder="Xác nhận mật khẩu..." required>
+                    <i class="fa fa-lock icon"></i>
+                </div>
+                <button ng-click="onSubmit()" type="button" class="btn btn-success btn-block">Đăng Ký</button>
+            </form>
+            <div class="footer">
+                <div class="line"></div>
+                <a href="/" class="btn btn-block btn-warning"><i class="fa fa-arrow-left"></i> Quay lại trang chủ</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+@section scripts {
+    <script src="~/Scripts/User/DangKyController.js"></script>
+}
+

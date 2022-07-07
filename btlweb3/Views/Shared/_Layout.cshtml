@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link rel="shortcut icon" href="~/Assets/image/logo1.png" type="Logo">
+
+    <!-- font -->
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- css -->
+    <link rel="stylesheet" href="~/Assets/vendor/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/Assets/vendor/fontawesome-free-5.15.4-web/css/all.css">
+    <link rel="stylesheet" href="~/Assets/css/style.css">
+    <link rel="stylesheet" href="~/Assets/css/box.css">
+
+    <!-- olw-carousel plugins -->
+    <link rel="stylesheet" href="~/Assets/vendor/owl-carousel/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/Assets/vendor/owl-carousel/owl.theme.default.min.css">
+    <link rel="stylesheet" href="~/Assets/vendor/owl-carousel/animate.css">
+
+    <!-- toastr css -->
+    <link rel="stylesheet" href="~/Assets/vendor/toastr/css/toastr.css">
+
+    @RenderSection("styles", false)
+</head>
+
+<body ng-app="AppModule">
+    @Html.Partial("_Header")
+
+    @RenderBody()
+
+    @Html.Partial("_Footer")
+</body>
+</html>
+
+
+<!-- Angular JS-->
+<script src="~/Scripts/angular.js"></script>
+<script src="~/Scripts/ui-bootstrap-tpls-3.0.6.min.js"></script>
+
+<!-- jquery script -->
+<script src="~/Assets/vendor/jquery-3.5.0/jquery-3.5.0.min.js"></script>
+<script src="~/Assets/vendor/toastr/js/toastr.min.js"></script>
+<script src="~/Scripts/sweetalert2.js"></script>
+<script src="~/Assets/vendor/owl-carousel/owl.carousel.min.js"></script>
+
+<!-- other script -->
+<script src="~/Scripts/User/app.js"></script>
+<script src="~/Scripts/User/GioHangController.js"></script>
+<script src="~/Assets/js/plugin.js"></script>
+<script src="~/Assets/js/ndtpro.js"></script>
+@*<script src="~/Assets/js/cart.js"></script>*@
+<script src="~/Assets/js/slideshow.js"></script>
+
+@RenderSection("scripts", false)

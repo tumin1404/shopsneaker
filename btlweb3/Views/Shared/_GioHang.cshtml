@@ -1,0 +1,39 @@
+﻿<div class="cart-info" ng-controller="GioHangController" style="margin-top:15px">
+    <a href="/GioHang/Index" style="margin-top:20px">
+        <div class="cart-icon" ><i class="fa fa-shopping-cart"></i></div>
+    </a>
+    <div class="cart-count" data-cart="count">{{GioHang.soLuong}}</div>
+    <div class="cart-products">
+        <div data-cart="products">
+            <!-- ds sản phẩm ở đây -->
+            <div class="content" ng-repeat="item in GioHang.gioHang">
+                <div class="product">
+                    <img ng-src="~/Assets/Uploads/{{item.HinhAnh}}" alt="...">
+                    <span class="content">
+                        <a href="/SanPham/Index?id={{item.MaSP}}">{{item.TenSP}}</a>
+                        <p><span class="quantity">{{item.SoLuong}}</span> {{item.DonGia}} đ</p>
+                    </span>
+                    <span class="remove" ng-click="XoaKhoiGio(item.MaSP)">&times;</span>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="row mb-3">
+                <div class="col-6">
+                    Tổng tiền:
+                </div>
+                <div class="col-6 text-right">
+                    <b data-cart="total">{{GioHang.tongTien}}</b>đ
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <a href="/GioHang/Index" class="btn btn-outline-primary left">Xem giỏ hàng</a>
+                </div>
+                <div class="col-6 text-right btn-checkout">
+                    <a ng-show="GioHang.gioHang.length > 0" href="/GioHang/ThanhToan" class="btn btn-outline-danger">Thanh toán</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

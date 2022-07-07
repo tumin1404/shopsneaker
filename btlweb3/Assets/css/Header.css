@@ -1,0 +1,28 @@
+﻿.pre-header{
+    width:100%;
+    height:20px;
+}
+.pre-header li{
+    list-style-type:none;
+}
+.top_bar-left li{
+    margin-right:10px;
+}
+.item img{
+    height:200px;
+}
+.title-admin-login {
+    display: flex;
+    font-size: 20px;
+    text-align: center;
+}
+.title-admin-login a{
+    text-decoration:none;
+    color:black;
+}
+.title-admin-login a:hover{
+    color:#FFD700;
+}
+.title-admin-login i{
+    margin-left:150px;
+}

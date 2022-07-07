@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewBag.Title = "Min Sneaker | Giày";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<section class="container" ng-controller="HomeController">
+    <div ng-init="LoadList()"> </div>
+    <div class="title-line">
+        <h1>Giày Min Sneaker</h1>
+        <div class="line"></div>
+    </div>
+
+    <div class="row list-products">
+        <div class="col-3" ng-repeat="item in list" >
+            <div class="product-card">
+                <div class="product-image">
+                    <img ng-src="~/Assets/Uploads/{{item.HinhAnh}}" alt="..." class="first-image">
+                    <img ng-src="~/Assets/Uploads/{{item.HinhAnh}}" alt="..." class="second-image">
+                    <div class="action">
+                        <a ng-click="ThemVaoGio(item.MaSP)" data-cart="add"><i class="fa fa-cart-plus"></i></a>
+                        <a href="/SanPham/Index?id={{item.MaSP}}" data-view="quick-view"><i class="fa fa-eye"></i></a>
+                    </div>
+                </div>
+                <div class="product-content">
+                    <a href="/SanPham/Index?id={{item.MaSP}}">{{item.TenSP}}</a>
+                    <p>{{item.DonGia | currency:"":0}} đ</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section scripts {
+    <script src="~/Scripts/User/HomeController.js"></script>
+}
+<style>
+.product-card:hover {
+        border: 1px solid #FFD700;
+    }
+</style>

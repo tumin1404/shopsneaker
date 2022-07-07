@@ -1,0 +1,18 @@
+﻿#sua-chua{
+    width:1300px;
+    margin-left:20px;
+}
+.write {
+    width: 82%;
+    margin-left: 9%;
+    margin-right: 9%;
+}
+
+.write h1 {
+text-align:center;
+font-size: 30px;
+color: #FFD700;
+}
+.write h2, h3, h4 {
+color: #FFD700;
+}

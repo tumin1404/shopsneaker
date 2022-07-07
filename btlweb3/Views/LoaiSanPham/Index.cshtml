@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="container" ng-controller="LoaiSanPhamController">
+    <div class="row">
+        <div class="col-3 p-3">
+            <div class="row">
+                <div class="col-12">
+                    @Html.Partial("_DanhMuc")
+                </div>
+            </div>
+        </div>
+        <div class="title-line title-left title-sm" style="margin-left:400px;">
+            <h2 style="font-size: 18px;">{{LoaiSanPham.TenLoai}}</h2>
+            {{sanPham.length}} sản phẩm
+        </div>
+        <div class="col-9 p-3">
+            <div class="row list-products">
+                <div class="col-4" ng-repeat="item in sanPham">
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img ng-src="~/Assets/Uploads/{{item.HinhAnh}}" alt="..." class="first-image">
+                            <img ng-src="~/Assets/Uploads/{{item.HinhAnh}}" alt="..." class="second-image">
+                            <div class="action">
+                                <a ng-click="ThemVaoGio(item.MaSP)" data-cart="add"><i class="fa fa-cart-plus"></i></a>
+                                <a href="/SanPham/Index?id={{item.MaSP}}" data-view="quick-view"><i class="fa fa-eye"></i></a>
+                            </div>
+                        </div>
+                        <div class="product-content">
+                            <a href="/SanPham/ChiTiet?id={{item.MaSP}}">{{item.TenSP}}</a>
+                            <p>{{item.DonGia}} đ</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @*phân trang*@
+            <ul uib-pagination items-per-page="pageSize" total-items="rowCount" ng-model="currentPage" ng-change="pageChanged()" previous-text="&laquo;" next-text="&raquo;"></ul>
+        </div>
+    </div>
+</section>
+
+@section scripts {
+    <script src="~/Scripts/User/LoaiSanPhamController.js"></script>
+}
+

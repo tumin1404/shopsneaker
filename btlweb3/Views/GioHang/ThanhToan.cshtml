@@ -1,0 +1,98 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đặt hàng</title>
+
+    <link rel="shortcut icon" href="~/Assets/image/favicon-d.png" type="image/x-icon">
+
+    <!-- font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap">
+
+    <!-- css -->
+    <link rel="stylesheet" href="~/Assets/css/style-checkout.css">
+
+</head>
+
+<body ng-app="AppModule">
+    <div class="wrap" ng-controller="GioHangController">
+        <div class="info-left">
+            <div class="content left">
+                <div class="top">
+                    <a href="/"><img src="~/Assets/image/logo1.png" alt="logo" style="width: 70px"></a>
+
+                    <h2>Đặt hàng</h2>
+                </div>
+
+                <div class="customer-input">
+                    <form name="form">
+                        <div class="row">
+                            <div class="col-12">
+                                <input type="text" name="HoTen" ng-model="formModel.HoTen" placeholder="Họ tên" value="" required>
+                            </div>
+                            <div class="col-7">
+                                <input type="text" name="Email" ng-model="formModel.Email" placeholder="Email" value="" required>
+                            </div>
+                            <div class="col-5">
+                                <input type="text" name="SDT" ng-model="formModel.SDT" placeholder="Số điện thoại" value="" required>
+                            </div>
+                            <div class="col-12">
+                                <input type="text" name="DiaChi" ng-model="formModel.DiaChi" placeholder="Địa chỉ nhận hàng" value="" required>
+                            </div>
+                            <div class="col-4">
+                                <a href="/GioHang/Index" class="btn-back">Quay lại giỏ hàng</a>
+                            </div>
+                            <div class="col-8 text-right">
+                                <button ng-click="onSubmit()" type="button" class="btn-checkout">Đặt hàng ngay</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="info-right">
+            <div class="content right">
+
+                <div class="top">
+                </div>
+
+                <table class="table-cart">
+                    <tr ng-repeat="item in GioHang.gioHang">
+                        <td class="p-image">
+                            <img ng-src="~/Assets/Uploads/{{item.HinhAnh}}" alt="...">
+                            <span>{{item.SoLuong | currency:"":0}}</span>
+                        </td>
+                        <td class="p-name">
+                            {{item.TenSP}}
+                            <p>Size: {{item.KichThuoc}}</p>
+                        </td>
+                        <td class="p-price">
+                            {{item.DonGia | currency:"":0}} đ
+                        </td>
+                    </tr>
+                </table>
+                <div class="total-bill row">
+                    <div class="col-6">Tổng cộng:</div>
+                    <div class="col-6 text-right text-bold">{{GioHang.tongTien | currency:"":0}} đ</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<!-- Angular JS-->
+<script src="~/Scripts/angular.js"></script>
+<script src="~/Scripts/ui-bootstrap-tpls-3.0.6.min.js"></script>
+
+<script src="~/Scripts/User/app.js"></script>
+<script src="~/Scripts/User/GioHangController.js"></script>
+
+<script src="~/Scripts/sweetalert2.js"></script>

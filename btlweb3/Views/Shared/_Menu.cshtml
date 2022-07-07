@@ -1,0 +1,13 @@
+﻿<link rel="stylesheet" href="~/Assets/css/menu.css">
+<ul ng-controller="MenuController">
+    <li><a href="/" class="active">Trang chủ</a></li>
+    <li class="dropdown">
+        <a href="#">Sản phẩm <span class="sub-arrow">...</span></a>
+        <ul class="dropdown-menu">
+            <li ng-repeat="item in menus"><a href="/LoaiSanPham/Index?id={{item.MaLoai}}">{{item.TenLoai}}</a></li>
+        </ul>
+    </li>
+    <li><a href="/Home/GioiThieu">Giới thiệu</a></li>
+    <li><a href="/Home/LienHe">Liên hệ</a></li>
+    <li><a href="/Home/TinTuc">Tin tức</a></li>
+</ul>
